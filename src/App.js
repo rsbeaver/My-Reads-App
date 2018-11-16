@@ -31,7 +31,7 @@ class BooksApp extends React.Component {
   }
 
 
-  // Search API 
+  // Search API
   // Each book returned needs to get the book shelf value
   // For each book shelf value add the object  to the searchQuery
   getSearchResults = (searchQuery) => {
@@ -70,7 +70,7 @@ class BooksApp extends React.Component {
             console.log("Results were undefined")
           }
 
-          // If response was not empty check if response is VALID
+          // If response not empty check if response is VALID
           if (responsePositive) {
             let isValid = Object.entries(booksSearchResults)[0][0] === 'error' ? false : true
             if (!isValid) {
@@ -79,40 +79,32 @@ class BooksApp extends React.Component {
             }
           }
 
-          // If response was not undefined or invalid  the process can  continue 
-          // Each book elaborated in the parameters        
+          // If response does not equal undefined or invalid, the process can continue
+          // Each book elaborated in the parameters
           if (responsePositive) {
 
-            // In Result SetGet Book IDs for each book 
+            // In Result SetGet Book IDs for each book
             let resultSet = booksSearchResults.map(b => b.id)
             let bookRequests = []
 
-            // Fetch each book as per the ID and then add to new BookRequests Object
+            // Fetch each book using the ID and then add to new BookRequests Object
             resultSet.forEach(function (b) {
               bookRequests.push(BooksAPI.get(b))
             })
 
-
-
-
+            ///Return the new ResultSet Object
             return Promise.all(bookRequests)
               .then(newResultSet => {
-                ///Return the new ResultSet Object
                 return newResultSet
               })
           }
-
-          // console.log('books results empty')
           else {
-
             return booksSearchResults = []
           }
-
         })
 
-        // Once completed we then set the state to update the UI
+        // Once completed set the state to update the UI
         .then(booksSearchResults => {
-
           this.setState(state => ({
             booksSearchResults
           }))
@@ -126,8 +118,8 @@ class BooksApp extends React.Component {
   // Update a Book and Change its shelf (DB and UI)
   onBookShelfChange = (bookChanged, newShelf) => {
 
-    // Update the Database via the API
-    // Update the Books [] by fetching it again i.e. updates the state    
+    // Update the Database with the API
+    // Re-fetch update the Books [] by fetching it again to update the state
     BooksAPI.update(bookChanged, newShelf)
 
       .then(() => {
@@ -136,13 +128,12 @@ class BooksApp extends React.Component {
             books
           })
         })
-      }) // End .then Arrow Function
+      }) // End .then
   }
 
 
 
   render() {
-
     return (
 
       <div>
