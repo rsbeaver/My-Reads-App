@@ -9,7 +9,7 @@ The application was created with React, an API server. a client library and of c
 * start the development server with `npm start`.
 
 ## Dependencies
-- Already installed in the previous section (see Getting Project Started).
+- Already installed in the previous section (see Getting Project Started). This project relies on (depends on) HTML, CSS, React and JavaScript.
 
 # How to create a React App #
 You can find more information on how to perform common tasks here.
