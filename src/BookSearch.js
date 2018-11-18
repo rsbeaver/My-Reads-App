@@ -15,10 +15,10 @@ class BookSearch extends Component {
     state = {
         query: ''
     }
-
+a
     // Update Search Bar
     updateQuery = (query) => {
-        this.props.getSearchResults(query.str());
+a        this.props.getSearchResults(query.trim());
         this.setState({ query: query() })
     }
 
