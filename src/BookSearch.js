@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
+
+import Books from './Book';
+import * as BooksAPI from './BooksAPI';
 
 
 class BookSearch extends Component {
@@ -13,16 +16,31 @@ class BookSearch extends Component {
 
 
     state = {
-        query: ''
-    }
-a
+        query: '',
+        searchedBooks: []
+    };
+
     // Update Search Bar
-    updateQuery = (query) => {
-a        this.props.getSearchResults(query.trim());
-        this.setState({ query: query() })
-    }
+      updateQuery = (query) => {
+          this.props.getSearchResults(query.trimLeft());
+          this.setState({ query: query.trimLeft() })
+      }
 
 
+
+  updateSearchedBooks = query => {
+      if (query) {
+        BooksAPI.search(query).then(searchedBooks => {
+          if (searchedBooks.error) {
+            this.setState({ searchedBooks: [] });
+          } else {
+            this.setState({ searchedBooks });
+          }
+        });
+      } else {
+        this.setState({ searchedBooks: [] });
+      }
+    };
     render() {
 
         //  Reference the books by using 'books' instead of this.props.books
